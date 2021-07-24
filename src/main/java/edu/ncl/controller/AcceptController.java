@@ -85,8 +85,8 @@ public class AcceptController {
         }
         InputStream is = new ByteArrayInputStream(res);
 
-        String str = new String(res, "UTF-8");
-        System.out.println(str);
+//        String str = new String(res, "UTF-8");
+//        System.out.println(str);
 
         // 设置response参数，可以打开下载页面
         responseR.reset();
