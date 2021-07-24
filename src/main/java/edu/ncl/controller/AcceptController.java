@@ -128,7 +128,7 @@ public class AcceptController {
         //发送http请求去ttp，然后接收响应
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         // create GET request
-        HttpGet httpGet = new HttpGet("http://localhost:8080/viewSignature?fileSequenceNumber=" + fileSequenceNumber);
+        HttpGet httpGet = new HttpGet("http://18.169.167.111:8080/viewSignature?fileSequenceNumber=" + fileSequenceNumber);
         CloseableHttpResponse response = null;
         try {
             // execute the GET request
@@ -166,7 +166,7 @@ public class AcceptController {
         String receipt = RSAUtil.getSignature((String) request.getSession().getAttribute("RSAPrivateKey"), signature);
 
         // create GET request
-        HttpGet httpGet = new HttpGet("http://localhost:8080/accept?fileSequenceNumber=" + fileSequenceNumber + "&receipt=" + receipt);
+        HttpGet httpGet = new HttpGet("http://18.169.167.111:8080/accept?fileSequenceNumber=" + fileSequenceNumber + "&receipt=" + receipt);
         CloseableHttpResponse response = null;
         try {
             // execute the GET request
