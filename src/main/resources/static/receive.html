@@ -145,7 +145,7 @@
 									success: function (data2) {
 										if (data2.code == 200){
 											let xhr = new XMLHttpRequest();
-											xhr.open('get', 'http://localhost:8081/download?bucket=' + data2.data.bucket + '&key=' + data2.data.key + '&region=' + data2.data.region, true);
+											xhr.open('get', 'http://18.132.42.115:8081/download?bucket=' + data2.data.bucket + '&key=' + data2.data.key + '&region=' + data2.data.region, true);
 											xhr.responseType = 'blob';
 											xhr.setRequestHeader('Content-Type', 'application/json;charset=utf-8');
 											xhr.onload = function () {
@@ -188,7 +188,7 @@
 								alert("signature is: " + data.data.signature);
 							}else {
 								console.log(data.code);
-								window.location.href = "http://localhost:8081/error.html";
+								window.location.href = "http://18.132.42.115:8081/error.html";
 							}
 						}
 					});
@@ -203,10 +203,10 @@
 					if(data.code==200){//正确则为绿的否则为红色
 						// $('#userInfo').css("color","green");
 						console.log("200");
-						window.location.href = "http://localhost:8081/login.html";
+						window.location.href = "http://18.132.42.115:8081/login.html";
 					}else {
 						console.log(data.code);
-						window.location.href = "http://localhost:8081/error.html";
+						window.location.href = "http://18.132.42.115:8081/error.html";
 					}
 					console.log(data.code);
 				}
