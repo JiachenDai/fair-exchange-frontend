@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.GetObjectRequest;
@@ -44,10 +45,11 @@ public class AcceptController {
         byte[] byt = new byte[1024];
         byte[] res = null;
         try {
-            AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-                    .withRegion(region)
-                    .withCredentials(new ProfileCredentialsProvider())
-                    .build();
+//            AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+//                    .withRegion(region)
+//                    .withCredentials(new ProfileCredentialsProvider())
+//                    .build();
+            final AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion(Regions.EU_WEST_2).build();
 
             // Get an object and print its contents.
             fullObject = s3Client.getObject(new GetObjectRequest(bucket, key));
