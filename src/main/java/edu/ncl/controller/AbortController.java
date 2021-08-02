@@ -29,7 +29,7 @@ public class AbortController {
         String key = (String) request.getSession().getAttribute("RSAPrivateKey");
         String signature = RSAUtil.getSignature((String) request.getSession().getAttribute("RSAPrivateKey"), text);
         // create GET request
-        HttpGet httpGet = new HttpGet("http://18.169.167.111:8080/abort?fileSequenceNumber=" + fileSequenceNumber + "&abortSignature=" + signature);
+        HttpGet httpGet = new HttpGet("http://18.170.21.40:8080/abort?fileSequenceNumber=" + fileSequenceNumber + "&abortSignature=" + signature);
         CloseableHttpResponse response = null;
         try {
             // execute the GET request

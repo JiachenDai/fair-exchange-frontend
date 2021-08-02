@@ -35,7 +35,7 @@ public class LoginController {
         //发送http请求去ttp，然后接收响应
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         // create GET request
-        HttpGet httpGet = new HttpGet("http://18.169.167.111:8080/login?username=" + username + "&password=" + password);
+        HttpGet httpGet = new HttpGet("http://18.170.21.40:8080/login?username=" + username + "&password=" + password);
         CloseableHttpResponse response = null;
         try {
             // execute the GET request
