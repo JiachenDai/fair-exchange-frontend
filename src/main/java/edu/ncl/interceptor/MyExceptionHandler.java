@@ -13,7 +13,7 @@ public class MyExceptionHandler {
     public void exceptionHandler(Exception e, HttpServletResponse response){
         System.out.println("server error:"+e);
         try {
-            response.sendRedirect("http://3.11.153.149:8081/error.html");
+            response.sendRedirect("http://18.132.207.121:8081/error.html");
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }

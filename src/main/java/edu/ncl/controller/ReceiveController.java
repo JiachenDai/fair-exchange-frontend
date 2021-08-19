@@ -26,7 +26,7 @@ public class ReceiveController {
         //发送http请求去ttp，然后接收响应
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         // create GET request
-        HttpGet httpGet = new HttpGet("http://18.170.21.40:8080/listReceived?userId=" + id);
+        HttpGet httpGet = new HttpGet("http://3.10.225.160:8080/listReceived?userId=" + id);
         CloseableHttpResponse response = null;
         try {
             // execute the GET request
