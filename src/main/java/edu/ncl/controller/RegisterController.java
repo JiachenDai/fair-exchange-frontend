@@ -88,7 +88,7 @@ public class RegisterController {
         }
         KeyPairResult keyPairResult = new KeyPairResult();
         keyPairResult.setPrivateKey((String) keyPairs.get("privateKey"));
-        keyPairResult.setPrivateKey((String) keyPairs.get("publicKey"));
+        keyPairResult.setPublicKey((String) keyPairs.get("publicKey"));
         Result result = new Result(200, keyPairResult);
         return result;
     }
