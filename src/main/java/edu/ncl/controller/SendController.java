@@ -37,7 +37,7 @@ public class SendController {
 
     @RequestMapping("/upload")
     @ResponseBody
-    public Result upload(@RequestParam("receiverEmail") String receiverEmail, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public Result upload(@RequestParam("receiverEmail") String receiverEmail, @RequestParam("privateKey") String privateKey, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Result res = new Result();
         MultipartFile file = ((MultipartHttpServletRequest) request).getFile("file");
         System.out.println(file.getSize());
@@ -61,8 +61,9 @@ public class SendController {
             //sender id, receiver id, and uuid
             String text = request.getSession().getAttribute("id") + receiverEmail + uuid.toString();
             //do hash to the text and send the hash and the signature of hash to TTP
-            String key = (String) request.getSession().getAttribute("RSAPrivateKey");
-            String signature = RSAUtil.getSignature((String) request.getSession().getAttribute("RSAPrivateKey"), text);
+            String key = privateKey;
+            System.out.println("key is: " + key);
+            String signature = RSAUtil.getSignature(key, text);
             multipartEntityBuilder.addTextBody("signature", signature);
 
             HttpEntity httpEntity = multipartEntityBuilder.build();
