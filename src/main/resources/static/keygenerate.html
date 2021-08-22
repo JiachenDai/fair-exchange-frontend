@@ -59,7 +59,7 @@
                     // $('#userInfo').css("color","green");
                     console.log("200");
                     $('#public_key').html("public key is : " + "<br>" + data.data.publicKey + "<br>");
-                    $('#private_key').html("private key is : " + "<br>" + data.data.privateKey);
+                    $('#private_key').html("private key is : " + "<br>" + data.data.privateKey + "<br>" + "The public key is already stored into the database.");
                 } else {
                     window.location.href = "http://18.132.207.121:8081/error.html";
                 }

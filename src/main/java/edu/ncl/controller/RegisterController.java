@@ -77,7 +77,7 @@ public class RegisterController {
 
     @GetMapping("/generateKeyPair")
     @ResponseBody
-    public Result register(){
+    public Result register(HttpServletRequest request){
         Map<String, Object> keyPairs = null;
         try {
             keyPairs = RSAUtil.generateKeyPairs();
@@ -86,10 +86,44 @@ public class RegisterController {
             Result result = new Result(500, "internal server error");
             return result;
         }
+
         KeyPairResult keyPairResult = new KeyPairResult();
         keyPairResult.setPrivateKey((String) keyPairs.get("privateKey"));
         keyPairResult.setPublicKey((String) keyPairs.get("publicKey"));
-        Result result = new Result(200, keyPairResult);
-        return result;
+
+        //发送http请求去ttp，然后接收响应
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        // create GET request
+        HttpGet httpGet = new HttpGet("http://3.10.225.160:8080/storePublicKey?userId=" + request.getSession().getAttribute("id") + "&publicKey=" + keyPairResult.getPublicKey());
+        System.out.println("userId = " + request.getSession().getAttribute("id"));
+        CloseableHttpResponse response = null;
+        try {
+            // execute the GET request
+            response = httpClient.execute(httpGet);
+            // response
+            HttpEntity responseEntity = response.getEntity();
+            //json解包，看是否发生错误，以及对应的页面渲染
+            Result result = JSON.parseObject(EntityUtils.toString(responseEntity), Result.class);
+            if (result.getCode().equals(200)){
+                return new Result(200, keyPairResult);
+            }
+            return result;
+        } catch (Exception e) {
+            System.out.println("connection failed: "+e.getMessage());
+            Result result = new Result(500, "internal server error");
+            return result;
+        } finally {
+            try {
+                // release the resources
+                if (httpClient != null) {
+                    httpClient.close();
+                }
+                if (response != null) {
+                    response.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
