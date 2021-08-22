@@ -3,10 +3,10 @@ package edu.ncl.util;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 
-import java.security.KeyFactory;
-import java.security.PrivateKey;
-import java.security.Signature;
+import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RSAUtil {
 
@@ -25,5 +25,16 @@ public class RSAUtil {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static Map<String, Object> generateKeyPairs() throws NoSuchAlgorithmException {
+        Map<String, Object> keyPairMap = new HashMap<>();
+        KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
+        KeyPair keyPair = generator.genKeyPair();
+        PublicKey aPublic = keyPair.getPublic();
+        PrivateKey aPrivate = keyPair.getPrivate();
+        keyPairMap.put("publicKey", Base64.encodeBase64String(aPublic.getEncoded()));
+        keyPairMap.put("privateKey", Base64.encodeBase64String(aPrivate.getEncoded()));
+        return keyPairMap;
     }
 }

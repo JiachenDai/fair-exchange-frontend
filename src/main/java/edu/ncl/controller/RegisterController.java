@@ -3,7 +3,9 @@ package edu.ncl.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import edu.ncl.domain.ErrorMessage;
+import edu.ncl.domain.KeyPairResult;
 import edu.ncl.domain.Result;
+import edu.ncl.util.RSAUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -24,8 +26,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class RegisterController {
@@ -69,5 +73,23 @@ public class RegisterController {
             }
         }
 
+    }
+
+    @GetMapping("/generateKeyPair")
+    @ResponseBody
+    public Result register(){
+        Map<String, Object> keyPairs = null;
+        try {
+            keyPairs = RSAUtil.generateKeyPairs();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            Result result = new Result(500, "internal server error");
+            return result;
+        }
+        KeyPairResult keyPairResult = new KeyPairResult();
+        keyPairResult.setPrivateKey((String) keyPairs.get("privateKey"));
+        keyPairResult.setPrivateKey((String) keyPairs.get("publicKey"));
+        Result result = new Result(200, keyPairResult);
+        return result;
     }
 }
