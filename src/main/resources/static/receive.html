@@ -85,6 +85,14 @@
 				</div>
 				<br>
 				<br>
+				<ul>
+					<li class="clearfloat">
+						<span>private key:</span>
+						<input type="text" id="private_key_receive">
+					</li>
+				</ul>
+				<br>
+				<br>
 				<div class="more" >
 					<a href="javascript:void(0);" onclick="accept()">Accept</a>
 				</div>
@@ -142,7 +150,7 @@
 								$.ajax({
 									type: "get",
 									url:"/writeReceipt",
-									data:{"signature" : data.data.signature, "fileSequenceNumber" : dataRow.fileSequenceNumber},
+									data:{"signature" : data.data.signature, "fileSequenceNumber" : dataRow.fileSequenceNumber, "privateKey" : $('#private_key_receive').val()},
 									success: function (data2) {
 										if (data2.code == 200){
 											let xhr = new XMLHttpRequest();

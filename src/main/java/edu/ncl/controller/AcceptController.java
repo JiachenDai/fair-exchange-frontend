@@ -161,7 +161,7 @@ public class AcceptController {
 
     @RequestMapping("/writeReceipt")
     @ResponseBody
-    public Result writeReceipt(HttpServletRequest request, @RequestParam("fileSequenceNumber") String fileSequenceNumber, @RequestParam("signature") String signature){
+    public Result writeReceipt(HttpServletRequest request, @RequestParam("fileSequenceNumber") String fileSequenceNumber, @RequestParam("signature") String signature, @RequestParam("privateKey") String privateKey){
         Result result = new Result();
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 

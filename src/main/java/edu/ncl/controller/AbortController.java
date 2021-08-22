@@ -20,14 +20,15 @@ import java.io.IOException;
 public class AbortController {
 
     @RequestMapping("/abort")
-    public Result abort(@RequestParam("fileSequenceNumber") String fileSequenceNumber, HttpServletRequest request){
+    public Result abort(@RequestParam("fileSequenceNumber") String fileSequenceNumber, HttpServletRequest request, @RequestParam("privateKey") String privateKey){
         Result result = new Result();
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         //generate signature
         String text = request.getSession().getAttribute("id") + fileSequenceNumber;
         //do hash to the text and send the hash and the signature of hash to TTP
-        String key = (String) request.getSession().getAttribute("RSAPrivateKey");
-        String signature = RSAUtil.getSignature((String) request.getSession().getAttribute("RSAPrivateKey"), text);
+        String key = privateKey;
+        System.out.println("privateKey is: " + key);
+        String signature = RSAUtil.getSignature(key, text);
         // create GET request
         HttpGet httpGet = new HttpGet("http://3.10.225.160:8080/abort?fileSequenceNumber=" + fileSequenceNumber + "&abortSignature=" + signature);
         CloseableHttpResponse response = null;
